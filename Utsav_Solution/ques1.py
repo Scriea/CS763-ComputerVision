@@ -2,7 +2,7 @@ import cv2
 import os
 from os import listdir
 import pickle
-# upadted
+# upadted twice
 
 def store_coordinates(coord_list):
    for i,cood in enumerate(coord_list):
