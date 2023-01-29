@@ -4,11 +4,11 @@ from os import listdir
 import pickle
 
 
-
 def store_coordinates(coord_list):
-   dbfile = open('coord_pickle', 'ab')
-   pickle.dump(coord_list, dbfile)
-   dbfile.close()
+   for i,cood in enumerate(coord_list):
+      dbfile = open(str(i), 'ab')
+      pickle.dump(cood, dbfile)
+      dbfile.close()
 
 def load_coordinates(pickle_file):
    dbfile = open(pickle_file, 'rb')
