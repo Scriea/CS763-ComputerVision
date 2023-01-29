@@ -21,7 +21,7 @@ def load_coordinates(pickle_file):
 
 # defining some important folder paths to be used later in the code
 dataset_folder = '/Users/utsavmdesai/Documents/SEM 6/CS 763/Task1/Solution/dataset'
-saving_folder = '/Users/utsavmdesai/Documents/SEM 6/CS 763/Task1/Solution/Blurred_images/'
+saving_folder = '/Users/utsavmdesai/Documents/SEM 6/CS 763/Task1/Solution/Utsav_Solution/results-bounding-box/'
 pickle_folder = '/Users/utsavmdesai/Documents/SEM 6/CS 763/Task1/pickle_files'
 
 # main for loop to get annotation inputes from the user
