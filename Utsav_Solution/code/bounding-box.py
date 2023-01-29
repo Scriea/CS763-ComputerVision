@@ -20,7 +20,7 @@ def load_coordinates(pickle_file):
 
 
 # defining some important folder paths to be used later in the code
-dataset_folder = '/Users/utsavmdesai/Documents/SEM 6/CS 763/Task1/Solution/dataset'
+dataset_folder = '/Users/utsavmdesai/Documents/SEM 6/CS 763/Task1/Solution/dataset/bounding-box'
 saving_folder = '/Users/utsavmdesai/Documents/SEM 6/CS 763/Task1/Solution/Utsav_Solution/results-bounding-box/'
 pickle_folder = '/Users/utsavmdesai/Documents/SEM 6/CS 763/Task1/pickle_files'
 
@@ -34,7 +34,7 @@ for j, path in enumerate(listdir(dataset_folder)):
         if k == 'p':
             print('Please drag and drop to draw a box and press q after creating required boxes')
 
-        img_path = "/Users/utsavmdesai/Documents/SEM 6/CS 763/Task1/Solution/dataset/" + path
+        img_path = "/Users/utsavmdesai/Documents/SEM 6/CS 763/Task1/Solution/dataset/bounding-box/" + path
         img = cv2.imread(img_path)
         img_plt = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
