@@ -4,7 +4,7 @@ from os import listdir
 import pickle
 
 def store_coordinates(coord_list, j):
-   with open('/Users/utsavmdesai/Documents/SEM 6/CS 763/Task1/pickle_files/' + str(j), 'ab') as f:
+   with open('/Users/utsavmdesai/Documents/SEM 6/CS 763/Task1/pickle_files/' + str(j), 'wb') as f:
       pickle.dump(coord_list, f)
    f.close()
 
@@ -77,7 +77,7 @@ print(listdir(dataset_folder))
 print(listdir(pickle_folder))
 
 
-def Gaussian_Blur(dataset_folder, saving_folder, pickle_folder):
+def Gaussian_Blur_Rectangle(dataset_folder, saving_folder, pickle_folder):
    i = 0
    data_list = listdir(dataset_folder)
    pic_list = listdir(pickle_folder)
@@ -107,13 +107,18 @@ def Gaussian_Blur(dataset_folder, saving_folder, pickle_folder):
 
 
       result_img = img.copy()
-      cv2.imshow('res img', result_img)
-      cv2.waitKey(0)
-      cv2.destroyAllWindows()
 
-      result_img[coord_list[0][1]:coord_list[0][3], coord_list[0][0]:coord_list[0][2],:] = cv2.GaussianBlur(result_img[coord_list[0][1]:coord_list[0][3], coord_list[0][0]:coord_list[0][2], :], (53, 53), 10000)
+      for k in range(len(coord_list)):
+         result_img[coord_list[k][1]:coord_list[k][3], coord_list[k][0]:coord_list[k][2], :] = cv2.GaussianBlur(
+            result_img[coord_list[k][1]:coord_list[k][3], coord_list[k][0]:coord_list[k][2], :], (53, 53), 10000)
+         result_img = cv2.rectangle(result_img, (coord_list[k][0], coord_list[k][1]), (coord_list[k][2], coord_list[k][3]), (0, 0, 0), 2)
+
+      # cv2.imshow('res img', result_img)
+      # cv2.waitKey(0)
+      # cv2.destroyAllWindows()
+
 
       cv2.imwrite(saving_folder + str(i) + '.jpg', result_img)
       print('saving resultant image...')
 
-Gaussian_Blur(dataset_folder, saving_folder, pickle_folder)
+Gaussian_Blur_Rectangle(dataset_folder, saving_folder, pickle_folder)
