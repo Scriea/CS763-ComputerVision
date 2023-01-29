@@ -3,27 +3,26 @@ import os
 from os import listdir
 import pickle
 
-def store_coordinates(coord_list):
-   for i,cood in enumerate(coord_list):
-      dbfile = open(str(i), 'ab')
-      pickle.dump(cood, dbfile)
-      dbfile.close()
+def store_coordinates(coord_list, j):
+   with open('/Users/utsavmdesai/Documents/SEM 6/CS 763/Task1/pickle_files/' + str(j), 'ab') as f:
+      pickle.dump(coord_list, f)
+   f.close()
 
 def load_coordinates(pickle_file):
    dbfile = open(pickle_file, 'rb')
    coord_list = pickle.load(dbfile)
-
+   return coord_list
 
 
 dataset_folder = '/Users/utsavmdesai/Documents/SEM 6/CS 763/Task1/Solution/dataset'
 
 
 cood = []
-for path in listdir(dataset_folder):
+for j, path in enumerate(listdir(dataset_folder)):
    if (path.endswith(".jpeg")):
-      print('Press 1 to proceed to next image....')
+      print('Press p to proceed to next image....')
       k = input()
-      if k == '1':
+      if k == 'p':
          print('Create bounding box....')
 
       img_path = "/Users/utsavmdesai/Documents/SEM 6/CS 763/Task1/Solution/dataset/" + path
@@ -47,7 +46,7 @@ for path in listdir(dataset_folder):
          elif event == cv2.EVENT_LBUTTONUP:
             drawing = False
             cv2.rectangle(img, (ix, iy),(x, y),(0, 0, 0),3)
-            cood.append(((ix,iy),(x,y)))
+            cood.append([ix,iy,x,y])
 
 
       cv2.namedWindow("Rectangle Window")
@@ -63,16 +62,41 @@ for path in listdir(dataset_folder):
       print('destroying windows...')
       cv2.destroyAllWindows()
 
-
-
+      store_coordinates(cood, j)
+      cood = []
 
    else:
       print('format not matching')
 
 
+saving_folder = '/Users/utsavmdesai/Documents/SEM 6/CS 763/Task1/Solution/Blurred_images/'
+pickle_folder = '/Users/utsavmdesai/Documents/SEM 6/CS 763/Task1/pickle_files'
+def Gaussian_Blur(dataset_folder, saving_folder, pickle_folder):
+   i = 0
+   for path in listdir(dataset_folder):
+      if (path.endswith(".jpeg")):
+         img_path = "/Users/utsavmdesai/Documents/SEM 6/CS 763/Task1/Solution/dataset/" + path
+         print(img_path)
+         pic_lis = listdir(pickle_folder)
+         if (pic_lis[i].endswith('.DS_Store')):
+            i += 1
+            continue
+         print(pickle_folder + '/' + listdir(pickle_folder)[i])
+         coord_list = load_coordinates(pickle_folder + '/' + listdir(pickle_folder)[i])
+         i += 1
+         img = cv2.imread(img_path)
+
+         print(coord_list)
 
 
+         result_img = img.copy()
+         cv2.imshow('res img', result_img)
+         cv2.waitKey(0)
+         cv2.destroyAllWindows()
 
+         result_img[coord_list[0][1]:coord_list[0][3], coord_list[0][0]:coord_list[0][2],:] = cv2.GaussianBlur(result_img[coord_list[0][1]:coord_list[0][3], coord_list[0][0]:coord_list[0][2], :], (53, 53), 10000)
 
-print(cood)
-store_coordinates(cood)
+         cv2.imwrite(saving_folder + str(i) + '.jpg', result_img)
+         print('saving resultant image...')
+
+Gaussian_Blur(dataset_folder, saving_folder, pickle_folder)
