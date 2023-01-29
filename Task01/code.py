@@ -6,9 +6,10 @@ import pickle
 
 
 def store_coordinates(coord_list):
-   dbfile = open('coord_pickle', 'ab')
-   pickle.dump(coord_list, dbfile)
-   dbfile.close()
+   for i,cood in enumerate(coord_list):
+      dbfile = open(str(i), 'ab')
+      pickle.dump(cood, dbfile)
+      dbfile.close()
 
 def load_coordinates(pickle_file):
    dbfile = open(pickle_file, 'rb')
@@ -21,7 +22,7 @@ dataset_folder = 'dataset/'
 
 cood = []
 for path in listdir(dataset_folder):
-   if (path.endswith(".jpg1")):
+   if (path.endswith(".jpeg") or path.endswith(".jpg")):
       print('Press 1 to proceed to next image....')
       k = input()
       if k == '1':
