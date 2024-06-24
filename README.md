@@ -1,7 +1,6 @@
 # Computer Vision Course:
 
 - Course Website: https://www.cse.iitb.ac.in/~sharat/current/cs763/
-- Piazza: https://piazza.com/class/lcc5j6pfn4rzb
 - Professor Sharat Chandran
 
 ## [**Task 01**](./Task01/)
